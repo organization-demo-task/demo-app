@@ -1,4 +1,4 @@
-name: release-dev-front
+name: release-test-front
 
 on:
   push:
@@ -9,25 +9,33 @@ on:
 
 env:
   IMAGE_NAME: demo-front
-  TAG: v0.1.0-dev
+  TAG: v0.1.0-test
+  REGISTRY: ghcr.io
+  ORG: organization-demo-task
 
 permissions:
   contents: read
   packages: write
 
 jobs:
-  release:
+  build-and-push:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
       - name: Login to GHCR
         run: |
           echo "${{ secrets.GITHUB_TOKEN }}" | \
           docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
-      - name: Build & push FRONT (dev)
+      - name: Build image
         run: |
-          docker build -t ghcr.io/${{ github.repository_owner }}/${IMAGE_NAME}:${TAG} dev/front
-          docker push ghcr.io/${{ github.repository_owner }}/${IMAGE_NAME}:${TAG}
+          docker build \
+            -t $REGISTRY/$ORG/$IMAGE_NAME:$TAG \
+            test/front
 
+      - name: Push image
+        run: |
+          docker push $REGISTRY/$ORG/$IMAGE_NAME:$TAG
