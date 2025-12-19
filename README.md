@@ -19,7 +19,7 @@ También incluye los **pipelines de CI** responsables de construir y publicar la
 
 ## Estructura del repositorio
 
-´´´
+```
 demo-app/
 ├── dev/
 │ ├── front/
@@ -29,7 +29,7 @@ demo-app/
 │ └── back/
 └── .github/
 └── workflows/
-´´´
+```
 - `dev` y `test` representan variantes de build por ambiente
 - Los workflows de GitHub Actions se activan al hacer merge a `main`
 
