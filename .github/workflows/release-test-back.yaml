@@ -9,7 +9,7 @@ on:
 
 env:
   IMAGE_NAME: demo-back
-  TAG: v0.1.0-test
+  TAG: v0.1.1-test
   REGISTRY: ghcr.io
   ORG: organization-demo-task
 
