@@ -1,12 +1,77 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <title>Demo App DEV</title>
-  </head>
-  <body>
-    <h1>Demo App - DEV</h1>
-    <p>version 0.1.0</p>
-  </body>
-</html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Demo GitOps</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: Arial, Helvetica, sans-serif;
+      background-color: #f4f6f8;
+    }
 
+    .container {
+      text-align: center;
+      background: white;
+      padding: 40px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      width: 300px;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      border: none;
+      border-radius: 4px;
+      background-color: #1976d2;
+      color: white;
+    }
+
+    button:hover {
+      background-color: #1565c0;
+    }
+
+    .status {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Demo GitOps</h1>
+    <p>Frontend + Backend con ArgoCD</p>
+
+    <button onclick="checkStatus()">Status</button>
+
+    <div class="status" id="status"></div>
+  </div>
+
+  <script>
+    async function checkStatus() {
+      const statusDiv = document.getElementById("status");
+      statusDiv.innerText = "Consultando estado...";
+
+      try {
+        const response = await fetch("http://localhost:8000/health");
+        const data = await response.json();
+        statusDiv.innerText = `Estado: ${data.status}`;
+      } catch (error) {
+        statusDiv.innerText = "Error al conectar con el backend";
+      }
+    }
+  </script>
+
+</body>
+</html>
